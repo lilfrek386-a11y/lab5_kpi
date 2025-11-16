@@ -3,19 +3,20 @@
 namespace Energy_Project.Services
 {
     public class EnergyMonitorService
-    {
+	{
         private readonly IDeviceRepository _devices;
         private readonly IEnergyPlanRepository _plans;
         private readonly INotificationService _notify;
-
+        
         public EnergyMonitorService(IDeviceRepository devices, IEnergyPlanRepository plans, INotificationService notify)
         {
             _devices = devices;
             _plans = plans;
             _notify = notify;
+
         }
 
-        public double CalculateCurrentUsageKwh()
+		public double CalculateCurrentUsageKwh()
         {
             var activeDevices = _devices.GetAll().Where(d => d.IsOn);
             return activeDevices.Sum(d => d.PowerUsageWatts) / 1000.0;
